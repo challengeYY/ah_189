@@ -21,8 +21,8 @@ function bodyRSA()
     这里需要用到python的rsa模块
 
 - 5:POST提交登陆数据.
-
-![test](https://github.com/challengeYY/ah_189/blob/master/test.png)
+        
+![test](https://github.com/challengeYY/ah_189/blob/master/TEST.PNG)
 ------------
 
 - 1:这里还没处理验证码识别模块
