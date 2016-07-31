@@ -9,20 +9,21 @@
     http://ah.189.cn/sso/VImage.servlet?random=0.653461813411035
 - 3:然后看图片输入验证码
 
-- 4:提交登录的数据中,密码被加密了,rsa加密方式,key在这里.
-```//用来对密码进行加密
-var key =  bodyRSA();   
-function bodyRSA()   
-{   
-    setMaxDigits(130);   
-    return new RSAKeyPair("10001","","a5aeb8c636ef1fda5a7a17a2819e51e1ea6e0cceb24b95574ae026536243524f322807df2531a42139389674545f4c596db162f6e6bbb26498baab074c036777");    
-}
-```
+- 4:提交登录的数据中,密码被加密了,rsa加密方式,key在这里. //用来对密码进行加密
     这里需要用到python的rsa模块
+    ```
+    var key =  bodyRSA();   
+    function bodyRSA()   
+    {   
+        setMaxDigits(130);   
+        return new RSAKeyPair("10001","","a5aeb8c636ef1fda5a7a17a2819e51e1ea6e0cceb24b95574ae026536243524f322807df2531a42139389674545f4c596db162f6e6bbb26498baab074c036777");    
+    }
+    ```
+
 
 - 5:POST提交登陆数据.
         
-![test](https://github.com/challengeYY/ah_189/blob/master/TEST.PNG)
+    ![test](https://github.com/challengeYY/ah_189/blob/master/TEST.PNG)
 ------------
 
 - 1:这里还没处理验证码识别模块
