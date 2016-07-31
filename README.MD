@@ -21,10 +21,11 @@ function bodyRSA()
     这里需要用到python的rsa模块
 
 - 5:POST提交登陆数据.
+
+- 6:验证码正确,并且号码属于安徽的话, 就会进入密码验证环节,第二次post进行密码校验.
         
 ![test](https://github.com/challengeYY/ah_189/blob/master/TEST.PNG)
 ------------
 
 - 1:这里还没处理验证码识别模块
 - 2:这里没有正确手机帐号密码,没处理完登陆后的信息判断
-- 3:这里没有处理密码rsa加密步骤,暂时没找到python好用的rsa模块.

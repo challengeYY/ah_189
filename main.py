@@ -1,6 +1,8 @@
 import requests
 import random
-
+import rsa
+import binascii
+from bs4 import BeautifulSoup
 
 class Http189:
     def __init__(self,uid,pwd):
@@ -32,10 +34,14 @@ class Http189:
         print("wait input captcha:")
         yzm=input("Captcha:")
 ###########################加密密码
-        # pubkey='a5aeb8c636ef1fda5a7a17a2819e51e1ea6e0cceb24b95574ae026536243524f322807df2531a42139389674545f4c596db162f6e6bbb26498baab074c036777'
-        # N= '10001'
+        pubkey='a5aeb8c636ef1fda5a7a17a2819e51e1ea6e0cceb24b95574ae026536243524f322807df2531a42139389674545f4c596db162f6e6bbb26498baab074c036777'
+        N= '10001'
+        rsaPublickey=int(pubkey,16)
+        rsaN =int(N,16)
+        key = rsa.PublicKey(rsaPublickey,rsaN)
+        self.pwdEnc = binascii.b2a_hex( rsa.encrypt(self.pwd.encode('utf-8') ,key))
         #对密码做rsa加密
-        self.pwdEnc='75c7e154d4451c3d9784a35b61ea99ee943330ab84ab992c70b650d80c7291c023975965f8867da28d0146afdf62043cbb4d920a4df4b52ff9bab463c567757b'
+        #self.pwdEnc='75cd7e154d4451c3d9784a35b61ea99ee943330ab84ab992c70b650d80c7291c023975965f8867da28d0146afdf62043cbb4d920a4df4b52ff9bab463c567757b'
 ##########
         data={
             'ssoAuth':'null'
@@ -56,11 +62,23 @@ class Http189:
             print('wrong captcha')
         elif(res.text.find("请输入安徽省电信手机号码!")!=-1):
             print("wrong phone")
+        elif(res.text.find("id=\"uamForm\"")!=-1):
+            print("checking password.....")
+            bs=BeautifulSoup(res.text)
+            sso=bs.find('input',attrs={'name':'SSORequestXML'}).attrs.get("value")
+            data={
+                'SSORequestXML':sso
+            }
+            res=self.http.post('http://uam.ah.ct10000.com/ffcs-uam/login',data=data)
+            if(res.text.find(">用户名密码错误<")!=-1):
+                print("wrong password")
+            else:
+                print(res.text)
         else:
             print(res.text)
         
 if __name__=='__main__':
-    obj=Http189('18939489380','39239903')
+    obj=Http189('18905688665','fadawf')
     obj.step1()
     obj.step2()
     obj.step3()
